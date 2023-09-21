@@ -23,6 +23,11 @@ header {
   top: 0;
   left: 0;
   z-index: 2;
+  transition: transform 1s ease-in-out;
+}
+
+.hide {
+  transform: translateY(-100px);
 }
 /* header-logo */
 #logo {

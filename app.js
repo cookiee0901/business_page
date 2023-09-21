@@ -7,6 +7,8 @@ const inputs = document.querySelectorAll("input[required]");
 const projectsContents = document.querySelectorAll(".projects-content");
 const closeBtn = document.querySelector(".select-content span");
 let isMenuClick = true;
+let intervalId;
+let scolling;
 
 const handleMenuBar = () => {
   if (isMenuClick) {
@@ -75,8 +77,6 @@ for (let projectsContent of projectsContents) {
   projectsContent.addEventListener("click", hadleprojectsContent);
 }
 
-menuBar.addEventListener("click", handleMenuBar);
-window.addEventListener("resize", handleWindowResize);
 contactForm.addEventListener("submit", (event) => {
   event.preventDefault();
   for (let input of inputs) {
@@ -84,4 +84,29 @@ contactForm.addEventListener("submit", (event) => {
   }
   alert("Thank you for message!");
 });
+
+const handleHideHeader = () => {
+  intervalId = setInterval(() => {
+    header.classList.add("hide");
+  }, 3000);
+};
+
+handleHideHeader();
+
+menuBar.addEventListener("click", handleMenuBar);
+window.addEventListener("resize", handleWindowResize);
+window.addEventListener(
+  "scroll",
+  (event) => {
+    if (!scolling) {
+      handleHideHeader();
+    }
+    clearTimeout(scolling);
+    scolling = setTimeout(() => {
+      clearInterval(intervalId);
+      header.classList.remove("hide");
+    }, 0);
+  },
+  3000
+);
 closeBtn.addEventListener("click", handleCloseProjectsContent);
