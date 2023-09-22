@@ -89,7 +89,7 @@ contactForm.addEventListener("submit", (event) => {
 const handleHideHeader = () => {
   setTimeoutId = setTimeout(() => {
     header.classList.add("hide");
-  }, 5000);
+  }, 2000);
 };
 
 const handleShowHeader = () => {
