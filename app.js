@@ -7,18 +7,19 @@ const inputs = document.querySelectorAll("input[required]");
 const projectsContents = document.querySelectorAll(".projects-content");
 const closeBtn = document.querySelector(".select-content span");
 let isMenuClick = true;
-let intervalId;
-let scolling;
+let scrolling;
+let setIntervalId;
+let setTimeoutId;
 
 const handleMenuBar = () => {
   if (isMenuClick) {
-    header.style.animation = "active .5s linear forwards";
+    header.style.animation = "active .3s linear forwards";
     setTimeout(() => {
       menu.style.display = "flex";
       isMenuClick = !isMenuClick;
-    }, 500);
+    }, 300);
   } else {
-    header.style.animation = "inactive .5s linear forwards";
+    header.style.animation = "inactive .3s linear forwards";
     menu.style.display = "none";
     isMenuClick = !isMenuClick;
   }
@@ -49,7 +50,7 @@ const handleWindowResize = () => {
   if (media.matches) {
     media.addListener(() => {
       menu.style.display = "flex";
-      header.style.animation = "inactive .5s linear forwards";
+      header.style.animation = "inactive .3s linear forwards";
     });
   } else {
     media.addListener(() => {
@@ -86,27 +87,22 @@ contactForm.addEventListener("submit", (event) => {
 });
 
 const handleHideHeader = () => {
-  intervalId = setInterval(() => {
+  setTimeoutId = setTimeout(() => {
     header.classList.add("hide");
-  }, 3000);
+  }, 5000);
 };
 
-handleHideHeader();
+const handleShowHeader = () => {
+  clearTimeout(setTimeoutId);
+  header.classList.remove("hide");
+};
 
+//마우스가 헤드에 있을 때 타임아웃 초기화!
+
+handleHideHeader();
 menuBar.addEventListener("click", handleMenuBar);
 window.addEventListener("resize", handleWindowResize);
-window.addEventListener(
-  "scroll",
-  (event) => {
-    if (!scolling) {
-      handleHideHeader();
-    }
-    clearTimeout(scolling);
-    scolling = setTimeout(() => {
-      clearInterval(intervalId);
-      header.classList.remove("hide");
-    }, 0);
-  },
-  3000
-);
+window.addEventListener("scroll", handleShowHeader);
+window.addEventListener("scrollend", handleHideHeader);
+
 closeBtn.addEventListener("click", handleCloseProjectsContent);
