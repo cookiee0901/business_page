@@ -99,6 +99,14 @@ const handleShowHeader = () => {
 
 //마우스가 헤드에 있을 때 타임아웃 초기화!
 
+const handleMouseMoveHeader = () => {
+  clearTimeout(setTimeoutId);
+};
+
+const handleMouseLeaveHeader = () => {
+  handleHideHeader();
+};
+
 handleHideHeader();
 menuBar.addEventListener("click", handleMenuBar);
 window.addEventListener("resize", handleWindowResize);
@@ -106,3 +114,6 @@ window.addEventListener("scroll", handleShowHeader);
 window.addEventListener("scrollend", handleHideHeader);
 
 closeBtn.addEventListener("click", handleCloseProjectsContent);
+
+header.addEventListener("mousemove", handleMouseMoveHeader);
+header.addEventListener("mouseleave", handleMouseLeaveHeader);
